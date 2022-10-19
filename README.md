@@ -10,4 +10,4 @@ RPC是进程间通信(Inter-Process Communication, IPC)的一种形式，即不�
 
 ## 相关文章
 
-* [乘风破浪，遇见最佳跨平台跨终端框架.Net Core/.Net生态 - 浅析ASP.NET Core远程调用，HttpClientFactory和gRPC最佳实践](https://www.cnblogs.com/taylorshi/p/16808281.html)
+* [乘风破浪，遇见最佳跨平台跨终端框架.Net Core/.Net生态 - 浅析ASP.NET Core远程过程调用，HttpClientFactory和gRPC最佳实践](https://www.cnblogs.com/taylorshi/p/16808281.html)
