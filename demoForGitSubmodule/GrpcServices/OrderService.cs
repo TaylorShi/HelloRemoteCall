@@ -2,7 +2,7 @@
 using GrpcServices;
 using System.Threading.Tasks;
 
-namespace demoForGrpcServer.GrpcServices
+namespace demoForGitSubmodule.GrpcServices
 {
     /// <summary>
     /// 订单服务(基于Grpc)

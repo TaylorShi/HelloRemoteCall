@@ -1,5 +1,5 @@
-using demoForGrpcServer.GrpcServices;
-using demoForGrpcServer.Interceptors;
+using demoForGitSubmodule.GrpcServices;
+using demoForGitSubmodule.Interceptors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace demoForGrpcServer
+namespace demoForGitSubmodule
 {
     public class Startup
     {
@@ -54,7 +54,6 @@ namespace demoForGrpcServer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<OrderService>();
-                //endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapControllers();
             });
         }

@@ -1,4 +1,5 @@
 using GrpcServices;
+using Helloworld;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +15,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static GrpcServices.OrderGrpc;
+using static Helloworld.Greeter;
 
 namespace demoForGrpcClient
 {
@@ -49,6 +51,17 @@ namespace demoForGrpcClient
                 handler.SslOptions.RemoteCertificateValidationCallback = (a, b, c, d) => true;
                 return handler;
             });
+
+            services.AddGrpcClient<Greeter.GreeterClient>(grpcClientFactoryOptions =>
+            {
+                grpcClientFactoryOptions.Address = new Uri("https://localhost:5001");
+            }).ConfigurePrimaryHttpMessageHandler(serviceProvider =>
+            {
+                var handler = new SocketsHttpHandler();
+                // 允许无效或自签名证书
+                handler.SslOptions.RemoteCertificateValidationCallback = (a, b, c, d) => true;
+                return handler;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,16 +82,27 @@ namespace demoForGrpcClient
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    OrderGrpcClient service = context.RequestServices.GetService<OrderGrpcClient>();
+                    GreeterClient service = context.RequestServices.GetService<GreeterClient>();
                     try
                     {
-                        CreateOrderResult result = service.CreateOrder(new CreateOrderCommand { BuyerId = "abc" });
-                        await context.Response.WriteAsync(result.OrderId.ToString());
+                        HelloReply result = service.SayHello(new HelloRequest { Name = "abc" });
+                        await context.Response.WriteAsync(result.Message.ToString());
                     }
                     catch (Exception ex)
                     {
 
                     }
+
+                    //OrderGrpcClient service = context.RequestServices.GetService<OrderGrpcClient>();
+                    //try
+                    //{
+                    //    CreateOrderResult result = service.CreateOrder(new CreateOrderCommand { BuyerId = "abc" });
+                    //    await context.Response.WriteAsync(result.OrderId.ToString());
+                    //}
+                    //catch (Exception ex)
+                    //{
+
+                    //}
                 });
 
                 endpoints.MapControllers();

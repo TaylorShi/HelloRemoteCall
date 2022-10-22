@@ -1,15 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>4a768401-255f-4d25-804e-ab6643ba275d</UserSecretsId>
+    <UserSecretsId>98d69dc4-fb5b-4079-bf75-d5915945b832</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="..\demoForGrpcServer\Proto\order.proto" Link="Protos\order.proto" />
     <Protobuf Include="Protos\helloworld.proto">
       <SourceUrl>https://raw.githubusercontent.com/grpc/grpc/master/examples/protos/helloworld.proto</SourceUrl>
     </Protobuf>

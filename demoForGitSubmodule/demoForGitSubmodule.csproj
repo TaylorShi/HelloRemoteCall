@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>4a768401-255f-4d25-804e-ab6643ba275d</UserSecretsId>
+    <UserSecretsId>22536c72-106b-495e-bdb9-4c819ef74471</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
@@ -9,9 +9,6 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="..\demoForGrpcServer\Proto\order.proto" Link="Protos\order.proto" />
-    <Protobuf Include="Protos\helloworld.proto">
-      <SourceUrl>https://raw.githubusercontent.com/grpc/grpc/master/examples/protos/helloworld.proto</SourceUrl>
-    </Protobuf>
+    <Protobuf Include="..\HelloGrpcProto\Protos\order.proto" Link="Protos\order.proto" />
   </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
-using demoForGrpcServer.GrpcServices;
-using demoForGrpcServer.Interceptors;
+using demoForGrpcSwagger.GrpcServices;
+using demoForGrpcSwagger.Interceptors;
+using demoForVersion31.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace demoForGrpcServer
+namespace demoForGrpcSwagger
 {
     public class Startup
     {
@@ -35,15 +37,19 @@ namespace demoForGrpcServer
                 // 添加一个异常拦截器
                 grpcServiceOptions.Interceptors.Add<GrpcExceptionInterceptor>();
             });
+            services.AddApiVersions();
+            services.AddSwaggers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwaggerAndApiVersions(provider);
 
             app.UseHttpsRedirection();
 
@@ -53,8 +59,7 @@ namespace demoForGrpcServer
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<OrderService>();
-                //endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<GreeterService>();
                 endpoints.MapControllers();
             });
         }
