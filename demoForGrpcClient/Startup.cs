@@ -1,3 +1,4 @@
+using Grpc.AspNetCore.Server;
 using GrpcServices;
 using Helloworld;
 using Microsoft.AspNetCore.Builder;
@@ -82,27 +83,27 @@ namespace demoForGrpcClient
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    GreeterClient service = context.RequestServices.GetService<GreeterClient>();
-                    try
-                    {
-                        HelloReply result = service.SayHello(new HelloRequest { Name = "abc" });
-                        await context.Response.WriteAsync(result.Message.ToString());
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-
-                    //OrderGrpcClient service = context.RequestServices.GetService<OrderGrpcClient>();
+                    //GreeterClient service = context.RequestServices.GetService<GreeterClient>();
                     //try
                     //{
-                    //    CreateOrderResult result = service.CreateOrder(new CreateOrderCommand { BuyerId = "abc" });
-                    //    await context.Response.WriteAsync(result.OrderId.ToString());
+                    //    HelloReply result = service.SayHello(new HelloRequest { Name = "abc" });
+                    //    await context.Response.WriteAsync(result.Message.ToString());
                     //}
                     //catch (Exception ex)
                     //{
 
                     //}
+
+                    OrderGrpcClient service = context.RequestServices.GetService<OrderGrpcClient>();
+                    try
+                    {
+                        CreateOrderResult result = service.CreateOrder(new CreateOrderCommand { BuyerId = "abc" });
+                        await context.Response.WriteAsync(result.OrderId.ToString());
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                 });
 
                 endpoints.MapControllers();
